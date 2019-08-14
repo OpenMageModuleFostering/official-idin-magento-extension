@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MIT License
+ *
+ * Copyright (c) 2016 CM Groep
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @category   CMGroep
+ * @package    Idin
+ * @author     Epartment Ecommerce B.V. <support@epartment.nl>
+ * @copyright  2016-2017 CM Groep
+ * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+-->
+<layout version="0.1.0">
+
+    <idin_base>
+        <reference name="head">
+            <action method="addCss">
+                <file>cm/idin/css/styles.css</file>
+            </action>
+        </reference>
+    </idin_base>
+
+    <customer_account_login>
+        <update handle="idin_base"/>
+        <reference name="content">
+            <block type="cmgroep_idin/customer_account_login_idin" template="cmgroep/idin/register_login.phtml"
+                   name="customer.account.login.idin"
+                   as="customer_account_login_idin"
+                   before="customer_form_login"/>
+        </reference>
+    </customer_account_login>
+
+    <customer_account_create>
+        <update handle="idin_base"/>
+        <reference name="content">
+            <block type="cmgroep_idin/customer_account_login_idin" template="cmgroep/idin/register_login.phtml"
+                   name="customer.account.register.idin"
+                   as="customer_account_register_idin"
+                   before="customer_form_register">
+                <action method="setIsRegistration">
+                    <registration>1</registration>
+                </action>
+            </block>
+        </reference>
+    </customer_account_create>
+
+    <idin_auth_finish>
+        <update handle="page_one_column"/>
+        <update handle="idin_base"/>
+        <reference name="content">
+            <block type="cmgroep_idin/customer_account_registration_finish"
+                   template="cmgroep/idin/registration/finish.phtml"
+                   name="customer.account.registration.finish"
+                   as="customer_account_registration_finish"/>
+        </reference>
+    </idin_auth_finish>
+
+    <customer_idin_info>
+        <update handle="idin_base"/>
+        <reference name="customer_account_dashboard">
+            <block type="cmgroep_idin/customer_account_info"
+                   template="cmgroep/idin/customer/info.phtml"
+                   name="customer.idin.info" as="idin_info">
+                <action method="setChild">
+                    <name>info</name>
+                    <block>customer_account_dashboard_info</block>
+                </action>
+            </block>
+            <action method="setChild">
+                <name>info</name>
+                <block>customer.idin.info</block>
+            </action>
+        </reference>
+    </customer_idin_info>
+
+    <customer_account_index>
+        <update handle="customer_idin_info"/>
+    </customer_account_index>
+
+    <checkout_cart_index>
+        <update handle="idin_base"/>
+        <reference name="content">
+            <block type="cmgroep_idin/checkout_cart_notice"
+                   template="cmgroep/idin/checkout/cart/notice.phtml"
+                   name="idin.cart.notice"
+                   as="idin_cart_notice"
+                   before="-"/>
+        </reference>
+    </checkout_cart_index>
+
+    <checkout_onepage_index>
+        <update handle="idin_base"/>
+        <reference name="checkout.onepage.login.before">
+            <block type="cmgroep_idin/customer_account_login_idin" template="cmgroep/idin/register_login.phtml"
+                   name="customer.account.login.idin"
+                   as="customer_account_login_idin"
+                   before="-">
+                <action method="setIsCheckout">
+                    <checkout>1</checkout>
+                </action>
+            </block>
+        </reference>
+        <reference name="checkout.onepage">
+            <block type="cmgroep_idin/checkout_onepage_verification"
+                   template="cmgroep/idin/checkout/onepage/age_verification.phtml"
+                   name="age_verification"/>
+        </reference>
+        <reference name="checkout.progress">
+            <action method="setTemplate" ifconfig="cmgroep_idin/common/active">
+                <template>cmgroep/idin/checkout/onepage/progress.phtml</template>
+            </action>
+            <block type="checkout/onepage_progress"
+                   template="cmgroep/idin/checkout/onepage/progress/age_verification.phtml"
+                   name="age_verification.progress"/>
+        </reference>
+        <reference name="content">
+            <block type="cmgroep_idin/checkout_onepage_js"
+                   template="cmgroep/idin/checkout/onepage.phtml"
+                   name="checkout.onepage.idin.js"
+                   as="checkout_onepage_idin_js" after="-"></block>
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_onepage_progress>
+        <reference name="root">
+            <action method="setTemplate" ifconfig="cmgroep_idin/age_verification/active">
+                <template>cmgroep/idin/checkout/onepage/progress.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_progress>
+
+    <checkout_onepage_progress_age_verification>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_progress"
+               name="root"
+               output="toHtml"
+               template="cmgroep/idin/checkout/onepage/progress/age_verification.phtml">
+            <action method="setInfoTemplate">
+                <method></method>
+                <template></template>
+            </action>
+        </block>
+    </checkout_onepage_progress_age_verification>
+
+    <!-- Remove login method from OSC when logged in -->
+    <customer_logged_in>
+        <remove name="checkout.login.idin.osc" />
+    </customer_logged_in>
+
+    <onestepcheckout_index_index>
+        <update handle="idin_base"/>
+        <reference name="content">
+            <block type="cmgroep_idin/customer_account_login_idin" template="cmgroep/idin/register_login.phtml"
+                   name="checkout.login.idin.osc"
+                   as="checkout_login_idin"
+                   before="-">
+                <action method="setIsCheckout">
+                    <checkout>1</checkout>
+                </action>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <block type="cmgroep_idin/checkout_thirdparty_onestepcheckout_checkout" name="onestepcheckout.idin.checkout"
+                   as="onestepcheckout_idin_checkout"
+                   template="cmgroep/idin/checkout/third_party/onestepcheckout/checkout.phtml">
+                <block type="cmgroep_idin/customer_account_login_idin" template="cmgroep/idin/register_login.phtml"
+                       name="customer.account.login.idin"
+                       as="customer_account_login_idin"
+                       before="-">
+                    <action method="setIsCheckout">
+                        <checkout>1</checkout>
+                    </action>
+                </block>
+            </block>
+            <block type="cmgroep_idin/checkout_thirdparty_onestepcheckout_js" name="onestepcheckout.idin.js"
+                   as="onestepcheckout_idin_js" template="cmgroep/idin/checkout/third_party/onestepcheckout/js.phtml"/>
+        </reference>
+    </onestepcheckout_index_index>
+
+    <!-- Product View Layout updates -->
+
+    <PRODUCT_TYPE_simple>
+        <update handle="idin_base"/>
+        <reference name="product.info.simple.extra">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_simple>
+
+    <PRODUCT_TYPE_configurable>
+        <update handle="idin_base"/>
+        <reference name="product.info.container1">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_configurable>
+
+    <PRODUCT_TYPE_grouped>
+        <update handle="idin_base"/>
+        <reference name="product.info.container1">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_grouped>
+
+    <PRODUCT_TYPE_bundle>
+        <update handle="idin_base"/>
+        <reference name="product.info.container1">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+
+    <PRODUCT_TYPE_virtual>
+        <update handle="idin_base"/>
+        <reference name="product.info.container1">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_virtual>
+
+    <PRODUCT_TYPE_downloadable>
+        <update handle="idin_base"/>
+        <reference name="product.info.container1">
+            <block type="cmgroep_idin/catalog_product_notice"
+                   template="cmgroep/idin/catalog/product/notice.phtml"
+                   name="idin.product.notice"
+                   as="idin_product_notice"
+                   before="-"/>
+        </reference>
+    </PRODUCT_TYPE_downloadable>
+
+</layout>

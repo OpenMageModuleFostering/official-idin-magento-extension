@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MIT License
+ *
+ * Copyright (c) 2016 CM Groep
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @category   CMGroep
+ * @package    Idin
+ * @author     Epartment Ecommerce B.V. <support@epartment.nl>
+ * @copyright  2016-2017 CM Groep
+ * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+-->
+<config>
+    <sections>
+        <cmgroep_idin translate="label">
+            <tab>service</tab>
+            <label>CM iDIN</label>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <sort_order>100</sort_order>
+
+            <groups>
+                <support translate="label">
+                    <label>Contact &amp; Support</label>
+                    <expanded>1</expanded>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>10</sort_order>
+
+                    <fields>
+                        <content>
+                            <frontend_model>cmgroep_idin/adminhtml_system_config_support</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content>
+                    </fields>
+                </support>
+                <common translate="label">
+                    <label>Common settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>20</sort_order>
+
+                    <fields>
+                        <active translate="label">
+                            <label>Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                        <mode translate="label">
+                            <label>Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>cmgroep_idin/system_config_source_mode</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>20</sort_order>
+                        </mode>
+                        <merchant_token translate="label">
+                            <label>Merchant Token</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </merchant_token>
+                    </fields>
+                </common>
+                <registration translate="label">
+                    <label>Registration with iDIN</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>30</sort_order>
+                    <required_services>name,address</required_services>
+
+                    <fields>
+                        <active translate="label">
+                            <label>Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                        <email_confirmation_template translate="label">
+                            <label>Email Confirmation Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </email_confirmation_template>
+                    </fields>
+                </registration>
+                <login translate="label">
+                    <label>Login with iDIN</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>40</sort_order>
+                    <required_services>identity</required_services>
+
+                    <fields>
+                        <active translate="label comment">
+                            <label>Active</label>
+                            <comment><![CDATA[Please note: every login action will result in a transaction with iDIN. There is a possibility this could lead to higher costs.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                    </fields>
+                </login>
+                <age_verification translate="label">
+                    <label>18+ Age Verification with iDIN</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>50</sort_order>
+                    <required_services>18y_or_older</required_services>
+
+                    <fields>
+                        <active translate="label">
+                            <label>Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                        <required translate="label">
+                            <label>Age Verification Required</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>cmgroep_idin/system_config_source_verificationrequired</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </required>
+                        <save_verification_result translate="label comment">
+                            <label>Save 18+ verification result</label>
+                            <comment><![CDATA[When set to &quot;No&quot;, the customer has to verify their age on every checkout.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>25</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </save_verification_result>
+                        <show_product_notice translate="label">
+                            <label>Show notice on product page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>cmgroep_idin/system_config_source_showproductnotice</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>26</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </show_product_notice>
+                        <product_notice translate="label">
+                            <label>Product page notice</label>
+                            <validate>required-entry</validate>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>27</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                                <show_product_notice separator=",">1,2</show_product_notice>
+                            </depends>
+                        </product_notice>
+                        <show_cart_notice translate="label">
+                            <label>Show shopping cart notice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>30</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </show_cart_notice>
+                        <cart_notice translate="label">
+                            <label>Shopping cart notice</label>
+                            <validate>required-entry</validate>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+
+                            <depends>
+                                <active>1</active>
+                                <show_cart_notice>1</show_cart_notice>
+                            </depends>
+                        </cart_notice>
+                    </fields>
+                </age_verification>
+            </groups>
+        </cmgroep_idin>
+    </sections>
+</config>
