@@ -1,5 +1,5 @@
 {
-    "name": "OpenMageModuleFostering\/official-idin-magento-extension",
+    "name": "openmage-module-fostering\/official-idin-magento-extension",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
