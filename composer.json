@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/official-idin-magento-extension",
+    "name": "OpenMageModuleFostering\/official-idin-magento-extension",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
     "description": "Official iDIN extension",
     "authors": [
-    {
-        "name": "Epartment Ecommerce",
-        "email": "support@epartment.nl"
-    }
-],
+        {
+            "name": "Epartment Ecommerce",
+            "email": "support@epartment.nl"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
